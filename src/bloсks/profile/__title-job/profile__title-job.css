@@ -1,0 +1,27 @@
+.profile__title-job {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 1;
+    margin: 0;
+    color: #FFFFFF;
+    text-overflow: ellipsis;
+    max-width: 330px;
+    overflow: hidden;
+    white-space: nowrap;
+    grid-area: job;
+}
+
+@media screen and (max-width:720px) {
+    .profile__title-job {
+        text-align: center;
+        padding-bottom: 36px;
+    }
+}
+
+@media screen and (max-width:460px) {
+    .profile__title-job {
+        font-size: 14px;
+        padding-bottom: 33px;
+        max-width: 282px;
+    }
+}

@@ -1,13 +1,64 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import url(./vendor/normalize.css);
+@import url(./fonts/fonts.css);
+@import url(./bloсks/page/page.css);
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
+/* Header */
+@import url(./bloсks/header/header.css);
+@import url(./bloсks/header/__logo/header__logo.css);
+
+/* Логотип */
+@import url(./bloсks/logo/logo.css);
+
+/* Профиль */
+@import url(./bloсks/profile/profile.css);
+@import url(./bloсks/profile/__info/profile__info.css);
+@import url(./bloсks/profile/__avatar/profile__avatar.css);
+@import url(./bloсks/profile/__text/profile__text.css);
+@import url(./bloсks/profile/__title/profile__title.css);
+@import url(./bloсks/profile/__title-job/profile__title-job.css);
+@import url(./bloсks/profile/__edit-button/profile__edit-button.css);
+@import url(./bloсks/profile/__add-button/profile__add-button.css);
+@import url(./bloсks/profile/__avatar-hover/profile__avatar-hover.css);
+@import url(./bloсks/profile/__avatar-frame/profile__avatar-frame.css);
+
+/* Карточки мест */
+@import url(./bloсks/elements/elements.css);
+@import url(./bloсks/elements/__element/elements__element.css);
+@import url(./bloсks/elements/__item/elements__item.css);
+@import url(./bloсks/elements/__image/elements__image.css);
+@import url(./bloсks/elements/__container/elements__container.css);
+@import url(./bloсks/elements/__title/elements__title.css);
+@import url(./bloсks/elements/__like/elements__like.css);
+@import url(./bloсks/elements/__like/_active/elements__like_active.css);
+@import url(./bloсks/elements/__trash/elements__trash.css);
+@import url(./bloсks/elements/__trash/_active/elements__trash-active.css);
+@import url(./bloсks/elements/__likes/elements__likes.css);
+@import url(./bloсks/elements/__like-numbers/elements__like-numbers.css);
+
+/* Подвал */
+@import url(./bloсks/footer/footer.css);
+@import url(./bloсks/footer/__copyright/footer__copyright.css);
+
+/* Попап */
+@import url(./bloсks/popup/popup.css);
+@import url(./bloсks/popup/_opened/popup_opened.css);
+@import url(./bloсks/popup/_shadow/popup_shadow.css);
+@import url(./bloсks/popup/__preview/popup__preview.css);
+@import url(./bloсks/popup/__container/popup__container.css);
+@import url(./bloсks/popup/__field/popup__field.css);
+@import url(./bloсks/popup/__description/popup__description.css);
+@import url(./bloсks/popup/__image/popup__image.css);
+@import url(./bloсks/popup/__form/popup__form.css);
+@import url(./bloсks/popup/__close-btn/popup__close-btn.css);
+@import url(./bloсks/popup/__title/popup__title.css);
+@import url(./bloсks/popup/__text/popup__text.css);
+@import url(./bloсks/popup/__text/_input/popup__text_input_job.css);
+@import url(./bloсks/popup/__text/_input/popup__text_input_name.css);
+@import url(./bloсks/popup/__save-button/popup__save-button.css);
+@import url(./bloсks/popup/__save-button/_inactive/popup__save-button_inactive.css);
+@import url(./bloсks/popup/__text/_input/popup__text_input_error.css);
+@import url(./bloсks/popup/_avatar/popup_avatar.css);
+
+/* Error */
+@import url(./bloсks/error/error.css);
+@import url(./bloсks/error/_active/error_active.css);

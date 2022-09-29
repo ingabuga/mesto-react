@@ -1,5 +1,6 @@
-import logo from '../logo.svg';
-import './App.css';
+import logo from '../images/logo-mesto_white.svg';
+// import './App.css';
+// import '../index.css';
 // import Header from './Header.js';
 
 function App() {
@@ -23,7 +24,7 @@ function App() {
 
 <body className="page">
         <header className="header">
-            <img className="logo header__logo" src="<%=require('./images/logo-mesto_white.svg')%>" alt="Логотип" />
+            <img className="logo header__logo" src={logo} alt="Логотип" />
         </header>
         <main>
             <section className="profile">

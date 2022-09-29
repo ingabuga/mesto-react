@@ -1,0 +1,30 @@
+.profile__text {
+    display: grid;
+    align-content: center;
+    grid-template-columns: 1fr 24px;
+    grid-template-rows: min-content min-content;
+    column-gap: 18px;
+    row-gap: 10px;
+    grid-template-areas: 
+    "title btn"
+    "job .";
+}
+
+@media screen and (max-width:720px) {
+    .profile__text {
+        display: flex;
+        max-width: 350px;
+        row-gap: 12px;
+        position: relative;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+    }
+}
+
+
+@media screen and (max-width:460px) {
+    .profile__text {
+        max-width: 200px;
+    }
+}

@@ -1,0 +1,6 @@
+.elements__item {
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    min-height:361px;
+    position: relative;
+}

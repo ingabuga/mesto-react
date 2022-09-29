@@ -1,0 +1,10 @@
+.popup__description {
+    font-size: 12px;
+    font-weight: normal;
+    color: #ffffff;
+    position:absolute;
+    margin: 0;
+    bottom: -25px;
+    left: 0;
+
+}

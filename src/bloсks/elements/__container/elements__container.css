@@ -1,0 +1,5 @@
+.elements__container {
+    display:grid;
+    grid-template-columns: 1fr 22px;
+    padding: 23px 25px 22px 21px;
+}
