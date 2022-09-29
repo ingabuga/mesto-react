@@ -21,8 +21,7 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-
-<body className="page">
+    <body className="page">
         <header className="header">
             <img className="logo header__logo" src={logo} alt="Логотип" />
         </header>
