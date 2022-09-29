@@ -5,6 +5,12 @@ import Footer from './Footer.js';
 import Main from './Main.js';
 
 function App() {
+
+    function closePopup() { 
+        const popupOpened = document.querySelector('.popup_opened');
+        popupOpened.classList.remove('popup_opened');
+      } 
+
   return (
     // <div className="App">
     //   <header className="App-header">
@@ -22,13 +28,15 @@ function App() {
     //     </a>
     //   </header>
     // </div>
+
+
     <body className="page">
         <Header />
         <Main />
         <Footer />
         <div className="popup popup_profile">
             <div className="popup__container">
-                <button className="popup__close-btn" type="button"></button>
+                <button className="popup__close-btn" type="button" onClick={closePopup}></button>
                 <form className="popup__form popup__form_profile" name="profile" novalidate>
                     <h2 className="popup__title">Редактировать профиль</h2>
                     <label className="popup__field">
@@ -45,7 +53,7 @@ function App() {
         </div>
         <div className="popup popup_avatar">
             <div className="popup__container">
-                <button className="popup__close-btn" type="button"></button>
+                <button className="popup__close-btn" type="button" onClick={closePopup}></button>
                 <form className="popup__form popup__form_profile" name="profile" novalidate>
                     <h2 className="popup__title">Обновить аватар</h2>
                     <label className="popup__field">
@@ -67,7 +75,7 @@ function App() {
         </div>
        <div className="popup popup_place">
             <div className="popup__container">
-                <button className="popup__close-btn" type="button"></button>
+                <button className="popup__close-btn" type="button" onClick={closePopup}></button>
                 <form className="popup__form popup__form_place" name="profile" novalidate>
                     <h2 className="popup__title">Новое место</h2>
                     <label className="popup__field">
