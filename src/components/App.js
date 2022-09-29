@@ -1,7 +1,8 @@
-import logo from '../images/logo-mesto_white.svg';
 // import './App.css';
 // import '../index.css';
-// import Header from './Header.js';
+import Header from './Header.js';
+import Footer from './Footer.js';
+import Main from './Main.js';
 
 function App() {
   return (
@@ -22,31 +23,9 @@ function App() {
     //   </header>
     // </div>
     <body className="page">
-        <header className="header">
-            <img className="logo header__logo" src={logo} alt="Логотип" />
-        </header>
-        <main>
-            <section className="profile">
-                <div className="profile__info">
-                    <div className="profile__avatar-frame">
-                        <div className="profile__avatar-hover"></div>
-                        <img className="profile__avatar" src="#" name="avatar" alt="Улыбающийся Жак Ив Кусто в красной шапочке" />
-                     </div>  
-                    <div className="profile__text">
-                        <h1 className="profile__title">Жак Ив Кусто</h1>
-                        <button aria-label="Редактирование профиля" className="profile__edit-button" type="button"></button>
-                        <p className="profile__title-job">Исследователь океана</p>
-                    </div>  
-                </div>
-                <button aria-label="Добавление карточки" className="profile__add-button" type="button"></button>
-            </section>
-            <section className="elements">
-                <ul className="elements__element"></ul>
-            </section>
-        </main>
-        <footer className="footer">
-            <p className="footer__copyright">&copy; 2020 Mesto Russia</p>
-        </footer>
+        <Header />
+        <Main />
+        <Footer />
         <div className="popup popup_profile">
             <div className="popup__container">
                 <button className="popup__close-btn" type="button"></button>
