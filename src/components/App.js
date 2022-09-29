@@ -33,9 +33,9 @@ function App() {
                         <img className="profile__avatar" src="#" name="avatar" alt="Улыбающийся Жак Ив Кусто в красной шапочке" />
                      </div>  
                     <div className="profile__text">
-                        <h1 className="profile__title"></h1>
+                        <h1 className="profile__title">Жак Ив Кусто</h1>
                         <button aria-label="Редактирование профиля" className="profile__edit-button" type="button"></button>
-                        <p className="profile__title-job"></p>
+                        <p className="profile__title-job">Исследователь океана</p>
                     </div>  
                 </div>
                 <button aria-label="Добавление карточки" className="profile__add-button" type="button"></button>
