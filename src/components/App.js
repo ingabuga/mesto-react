@@ -28,9 +28,9 @@ function App() {
     //     </a>
     //   </header>
     // </div>
-
-
-    <body className="page">
+    
+    <div className="root">
+    <div className="page">
         <Header />
         <Main />
         <Footer />
@@ -98,7 +98,8 @@ function App() {
             </div>
         </div>
     
-    </body>
+    </div>
+    </div>
 
     // <div className="App">
     //   <Header />
