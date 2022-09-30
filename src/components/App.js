@@ -5,6 +5,7 @@ import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup.js';
 
 function App() {
 
@@ -85,6 +86,7 @@ function App() {
                 <span id="link-input-error" className="error"></span>
             </label>
         </PopupWithForm>
+        <ImagePopup onClose={closeAllPopups} />
 
         <div className="popup popup_delete">
             <div className="popup__container">
@@ -93,14 +95,6 @@ function App() {
                     <h2 className="popup__title">Вы уверены?</h2>
                     <button className="popup__save-button" type="submit">Да</button>
                 </form>
-            </div>
-        </div>
-
-        <div className="popup popup_photo popup_shadow">
-            <div className="popup__preview">
-                <img className="popup__image" src=" " alt=" " />
-                <p className="popup__description"></p>
-                <button className="popup__close-btn" type="button"></button>
             </div>
         </div>
     
