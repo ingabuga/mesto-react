@@ -44,7 +44,7 @@ useEffect(() => {
                 <div className="profile__info">
                     <div className="profile__avatar-frame">
                         <div className="profile__avatar-hover" onClick={onEditAvatar}></div>
-                        <img className="profile__avatar" src="#" name="avatar" alt="Улыбающийся Жак Ив Кусто в красной шапочке" />
+                        <img className="profile__avatar" src={userAvatar} name="avatar" alt="Улыбающийся Жак Ив Кусто в красной шапочке" />
                      </div>  
                     <div className="profile__text">
                         <h1 className="profile__title">
