@@ -1,11 +1,13 @@
 import {useState, useEffect} from 'react';
 import api from '../utils/Api.js';
+import Card from './Cards.js';
 
-function Main({ onEditProfile, onAddPlace, onEditAvatar}) {
+function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     const [userName, setUserName] = useState('');
     const [userDescription, setUserDescription] = useState('');
     const [userAvatar, setUserAvatar] = useState('');
-    // const [userId, setUserId] = useState('');
+    const [userId, setUserId] = useState('');
+    const [cards, setCards] = useState([]);
 
 // function handleEditAvatarClick() {
 //     const popupAvatar = document.querySelector('.popup_avatar');
@@ -23,15 +25,17 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar}) {
 // }
 
 useEffect(() => {
-    Promise.all([api.getUserData()])
+    Promise.all([api.getUserData(), api.getInitialCards()])
         .then(allData => {
-            const [userData] = allData;
-            return [userData]
+            const [userData, cardsData] = allData;
+            return [userData, cardsData]
         })
-        .then(([userData]) => {
+        .then(([userData, cardsData]) => {
             setUserName(userData.name);
             setUserDescription(userData.about);
             setUserAvatar(userData.avatar);
+            setUserId(userData._id);
+            setCards(cardsData);
         })
         .catch(err => console.log(`Не удалось загрузить данные. Ошибка: ${err}`));
         
@@ -60,9 +64,15 @@ useEffect(() => {
                 </div>
                 <button aria-label="Добавление карточки" className="profile__add-button" type="button" onClick={onAddPlace}></button>
             </section>
-            {/* <section className="elements">
-                <ul className="elements__element"></ul>
-            </section> */}
+            <section className="elements">
+                <ul className="elements__element">
+                    {cards.map(currentCard => {
+                        return (
+                            <Card card ={currentCard} myId={userId} key={currentCard._id} onCardClick={onCardClick} />
+                        )
+                    })}
+                </ul>
+            </section>
         </main>
     )
 }

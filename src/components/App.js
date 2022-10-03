@@ -17,6 +17,7 @@ function App() {
     const [isEditAvatarPopupOpen, setEditAvatarState] = useState(false);
     const [isEditProfilePopupOpen, setEditProfileState] = useState(false);
     const [isAddPlacePopupOpen, setAddPlaceState] = useState(false);
+    
 
     function onEditAvatar() {
         setEditAvatarState(true)
@@ -88,7 +89,7 @@ function App() {
         </PopupWithForm>
         <ImagePopup onClose={closeAllPopups} />
 
-        <div className="popup popup_delete">
+        {/* <div className="popup popup_delete">
             <div className="popup__container">
                 <button className="popup__close-btn" type="button"></button>
                 <form className="popup__form popup__form_profile" name="delete">
@@ -96,7 +97,7 @@ function App() {
                     <button className="popup__save-button" type="submit">Да</button>
                 </form>
             </div>
-        </div>
+        </div> */}
     
     </div>
     </div>
