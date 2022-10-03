@@ -17,6 +17,7 @@ function App() {
     const [isEditAvatarPopupOpen, setEditAvatarState] = useState(false);
     const [isEditProfilePopupOpen, setEditProfileState] = useState(false);
     const [isAddPlacePopupOpen, setAddPlaceState] = useState(false);
+    const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
     
 
     function onEditAvatar() {
@@ -35,8 +36,12 @@ function App() {
         setEditAvatarState(false);
         setEditProfileState(false);
         setAddPlaceState(false);
+        setSelectedCard({data: '', isOpen: false})
     }
 
+    function handleCardClick(card) {
+        setSelectedCard({data: card, isOpen: true});
+      }
 
   return (
     // <div className="App">
@@ -59,15 +64,15 @@ function App() {
     <div className="root">
     <div className="page">
         <Header />
-        <Main onEditProfile={onEditProfile} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} />
+        <Main onEditProfile={onEditProfile} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} onCardClick={handleCardClick} />
         <Footer />
         <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText="Сохранить"  >
             <label className="popup__field">
-                <input type="text" id="name-input" placeholder="Имя" name="nameProfile" className="popup__text popup__text_input_name" required minlength="2" maxlength="40" />
+                <input type="text" id="name-input" placeholder="Имя" name="nameProfile" className="popup__text popup__text_input_name" required minLength="2" maxLength="40" />
                 <span id="name-input-error" className="error"></span>
             </label>
             <label className="popup__field">
-                <input type="text" id="job-input" placeholder="Профессия" name="jobProfile" className="popup__text popup__text_input_job" required minlength="2" maxlength="200" />
+                <input type="text" id="job-input" placeholder="Профессия" name="jobProfile" className="popup__text popup__text_input_job" required minLength="2" maxLength="200" />
                 <span id="job-input-error" className="error"></span>
             </label>
         </ PopupWithForm>
@@ -79,7 +84,7 @@ function App() {
         </PopupWithForm>
         <PopupWithForm name="place" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText="Создать">
             <label className="popup__field">
-                <input type="text" id="place-input" placeholder="Название" name="name" className="popup__text popup__text_input_name" required minlength="2" maxlength="30" />
+                <input type="text" id="place-input" placeholder="Название" name="name" className="popup__text popup__text_input_name" required minLength="2" maxLength="30" />
                 <span id="place-input-error" className="error"></span>
             </label>
             <label className="popup__field">
@@ -87,7 +92,7 @@ function App() {
                 <span id="link-input-error" className="error"></span>
             </label>
         </PopupWithForm>
-        <ImagePopup onClose={closeAllPopups} />
+        <ImagePopup isOpen={selectedCard.isOpen} onClose={closeAllPopups} card={selectedCard.data} />
 
         {/* <div className="popup popup_delete">
             <div className="popup__container">

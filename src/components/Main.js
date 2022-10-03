@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react';
 import api from '../utils/Api.js';
-import Card from './Cards.js';
+import Card from './Card.js';
 
 function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
     const [userName, setUserName] = useState('');
