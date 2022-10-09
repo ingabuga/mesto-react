@@ -1,21 +1,37 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import Header from './Header.js';
 import Footer from './Footer.js';
 import Main from './Main.js';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
+import api from '../utils/Api.js';
+
 
 function App() {
 
-    // function closePopup() { 
-    //     const popupOpened = document.querySelector('.popup_opened');
-    //     popupOpened.classList.remove('popup_opened');
-    //   } 
 
     const [isEditAvatarPopupOpen, setEditAvatarState] = useState(false);
     const [isEditProfilePopupOpen, setEditProfileState] = useState(false);
     const [isAddPlacePopupOpen, setAddPlaceState] = useState(false);
     const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
+    const [currentUser, setCurrentUser] =useState({});
+    const [cardsData, setCardsData] = useState([]);
+
+
+    useEffect(() => {
+        Promise.all([api.getUserData(), api.getInitialCards()])
+            .then(allData => {
+                const [userData, cardsData] = allData;
+                return [userData, cardsData]
+            })
+            .then(([userData, cardsData]) => {
+                setCurrentUser(userData);
+                setCardsData(cardsData);
+            })
+            .catch(err => console.log(`Не удалось загрузить данные. Ошибка: ${err}`));
+            
+    }, []);
     
 
     function onEditAvatar() {
@@ -44,9 +60,11 @@ function App() {
   return (
     
     <div className="root">
+        
     <div className="page">
+    <CurrentUserContext.Provider value={currentUser} >
         <Header />
-        <Main onEditProfile={onEditProfile} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} onCardClick={handleCardClick} />
+        <Main onEditProfile={onEditProfile} cardsData={cardsData} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} onCardClick={handleCardClick} />
         <Footer />
         <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText="Сохранить"  >
             <label className="popup__field">
@@ -85,8 +103,9 @@ function App() {
                 </form>
             </div>
         </div> */}
-    
+    </CurrentUserContext.Provider>
     </div>
+    
     </div>
 
   );
