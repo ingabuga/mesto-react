@@ -30,7 +30,9 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
                     <p className="elements__like-numbers">{card.likes.length}</p>
                 </div>
             </div>
-            {isOwn && <button className="elements__trash" type="button" onClick={handleDeleteClick}/>}
+            {isOwn ? <button className="elements__trash elements__trash-active" type="button" onClick={handleDeleteClick} /> : ''}
+
+            {/* {card.owner._id === currentUser._id ? <button className="elements__trash elements__trash-active" type="button" onClick={handleDeleteClick}/> : ''} */}
         </li>
     );
 

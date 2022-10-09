@@ -17,6 +17,7 @@ function App() {
     const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
     const [currentUser, setCurrentUser] =useState({});
     const [cardsData, setCardsData] = useState([]);
+    const [deletedCard, setDeletedCard] = useState({data: '', isOpen: false});
 
 
     useEffect(() => {
@@ -51,12 +52,16 @@ function App() {
         setEditProfileState(false);
         setAddPlaceState(false);
         setSelectedCard({data: '', isOpen: false})
+        setDeletedCard({data: '', isOpen: false});
     }
 
     function handleCardClick(card) {
         setSelectedCard({data: card, isOpen: true});
       }
 
+      function handleDeleteClick(card) {
+        setDeletedCard({data: card, isOpen: true});
+      }
 
 
  function handleCardLike(card) {
@@ -69,6 +74,19 @@ function App() {
        .catch(err => console.log(`Не удалость загрузить данные. Ошибка: ${err}`));
   }
 
+
+  function handleCardDelete(card) { 
+    // setIsLoading(true);
+    
+    api.removeCard(card._id)
+      .then(() => {
+        setCardsData(cardsData => cardsData.filter((item) => item._id !== card._id));
+      })
+      .then(() => closeAllPopups())
+      .catch(err => console.log(`Не удалость удалить карточку. Ошибка: ${err}`))
+    //   .finally(() => setIsLoading(false));
+  }
+
   return (
     
     <div className="root">
@@ -76,7 +94,14 @@ function App() {
     <div className="page">
     <CurrentUserContext.Provider value={currentUser} >
         <Header />
-        <Main onEditProfile={onEditProfile} cardsData={cardsData} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} onCardClick={handleCardClick} onCardLike={handleCardLike} />
+        <Main 
+        onEditProfile={onEditProfile} 
+        cardsData={cardsData} 
+        onAddPlace={onAddPlace} 
+        onEditAvatar={onEditAvatar} 
+        onCardClick={handleCardClick} 
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete} />
         <Footer />
         <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText="Сохранить"  >
             <label className="popup__field">
