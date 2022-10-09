@@ -6,6 +6,7 @@ import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/Api.js';
+import EditProfilePopup from './EditProfilePopup.js';
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
     const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
     const [currentUser, setCurrentUser] =useState({});
     const [cardsData, setCardsData] = useState([]);
-    const [deletedCard, setDeletedCard] = useState({data: '', isOpen: false});
+    const [deleteCard, setDeletedCard] = useState({data: '', isOpen: false});
 
 
     useEffect(() => {
@@ -87,6 +88,16 @@ function App() {
     //   .finally(() => setIsLoading(false));
   }
 
+  function handleUpdateUser({name, about}) {
+    // setIsLoading(true);
+
+    api.patchUserData(name, about)
+      .then(newUserData => setCurrentUser(newUserData))
+      .then(() => closeAllPopups())
+      .catch(err => console.log(`Не удалость обновить данные пользователя. Ошибка: ${err}`))
+    //   .finally(() => setIsLoading(false));
+  }
+
   return (
     
     <div className="root">
@@ -94,6 +105,7 @@ function App() {
     <div className="page">
     <CurrentUserContext.Provider value={currentUser} >
         <Header />
+        
         <Main 
         onEditProfile={onEditProfile} 
         cardsData={cardsData} 
@@ -102,17 +114,14 @@ function App() {
         onCardClick={handleCardClick} 
         onCardLike={handleCardLike}
         onCardDelete={handleCardDelete} />
+        
         <Footer />
-        <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText="Сохранить"  >
-            <label className="popup__field">
-                <input type="text" id="name-input" placeholder="Имя" name="nameProfile" className="popup__text popup__text_input_name" required minLength="2" maxLength="40" />
-                <span id="name-input-error" className="error"></span>
-            </label>
-            <label className="popup__field">
-                <input type="text" id="job-input" placeholder="Профессия" name="jobProfile" className="popup__text popup__text_input_job" required minLength="2" maxLength="200" />
-                <span id="job-input-error" className="error"></span>
-            </label>
-        </ PopupWithForm>
+        
+        <EditProfilePopup 
+        isOpen={isEditProfilePopupOpen} 
+        onClose={closeAllPopups} 
+        onUpdateUser={handleUpdateUser}/>
+        
         <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText="Сохранить">
             <label className="popup__field">
                 <input type="url" id="avatar-input" placeholder="Ссылка на аватар" name="link" className="popup__text popup__text_input_job" required />
