@@ -57,6 +57,18 @@ function App() {
         setSelectedCard({data: card, isOpen: true});
       }
 
+
+
+ function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id) ? true : false;
+
+    (isLiked ? api.removeLike(card._id) : api.addLike(card._id))
+      .then(newCard => {
+        setCardsData((cardsData) => cardsData.map(currentCard => currentCard._id === card._id ? newCard : currentCard));
+      })
+       .catch(err => console.log(`Не удалость загрузить данные. Ошибка: ${err}`));
+  }
+
   return (
     
     <div className="root">
@@ -64,7 +76,7 @@ function App() {
     <div className="page">
     <CurrentUserContext.Provider value={currentUser} >
         <Header />
-        <Main onEditProfile={onEditProfile} cardsData={cardsData} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} onCardClick={handleCardClick} />
+        <Main onEditProfile={onEditProfile} cardsData={cardsData} onAddPlace={onAddPlace} onEditAvatar={onEditAvatar} onCardClick={handleCardClick} onCardLike={handleCardLike} />
         <Footer />
         <PopupWithForm name="profile" title="Редактировать профиль" isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} buttonText="Сохранить"  >
             <label className="popup__field">

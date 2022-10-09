@@ -26,7 +26,7 @@ function Card({card, onCardClick, onCardLike, onCardDelete}) {
             <div className="elements__container">
                 <h2 className="elements__title">{card.name}</h2>
                 <div className="elements__likes">
-                    <button type="button" className={isLiked ? "elements__like elements__like-active" : "elements__like" } onClick={handleLike}></button>
+                    <button type="button" className={isLiked ? "elements__like elements__like_active" : "elements__like" } onClick={handleLike}></button>
                     <p className="elements__like-numbers">{card.likes.length}</p>
                 </div>
             </div>
