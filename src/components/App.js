@@ -88,10 +88,10 @@ function App() {
     //   .finally(() => setIsLoading(false));
   }
 
-  function handleUpdateUser({name, about}) {
+  function handleUpdateUser({data}) {
     // setIsLoading(true);
 
-    api.patchUserData(name, about)
+    api.patchUserData(data)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllPopups())
       .catch(err => console.log(`Не удалость обновить данные пользователя. Ошибка: ${err}`))
