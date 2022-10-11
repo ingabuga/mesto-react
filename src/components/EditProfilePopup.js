@@ -19,11 +19,11 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
     }
 
     function handleNameChange(evt) {
-       setName({value: evt.target.value});
+       setName(evt.target.value);
     }
 
     function handleDescriptionChange(evt) {
-        setDescription({value: evt.target.value});
+        setDescription( evt.target.value);
     }
 
     useEffect(() => {
