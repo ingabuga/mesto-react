@@ -7,6 +7,7 @@ import ImagePopup from './ImagePopup.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import api from '../utils/Api.js';
 import EditProfilePopup from './EditProfilePopup.js';
+import EditAvatarPopup from './EditAvatarPopup.js';
 
 
 function App() {
@@ -99,6 +100,17 @@ function App() {
     //   .finally(() => setIsLoading(false));
   }
 
+  function handleUpdateAvatar({avatar}) {
+    // setIsLoading(true);
+
+    api.patchAvatar(avatar)
+      .then(newUserData => setCurrentUser(newUserData))
+      .then(() => closeAllPopups())
+      .catch(err => console.log(`Не удалость обновить аватар. Ошибка: ${err}`))
+      // .finally(() => setIsLoading(false));
+  }
+
+
   return (
     
     <div className="root">
@@ -123,12 +135,11 @@ function App() {
         onClose={closeAllPopups} 
         onUpdateUser={handleUpdateUser}/>
         
-        <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} buttonText="Сохранить">
-            <label className="popup__field">
-                <input type="url" id="avatar-input" placeholder="Ссылка на аватар" name="link" className="popup__text popup__text_input_job" required />
-                <span id="avatar-input-error" className="error"></span>
-            </label>
-        </PopupWithForm>
+        <EditAvatarPopup 
+        isOpen={isEditAvatarPopupOpen} 
+        onClose={closeAllPopups} 
+        onUpdateAvatar={handleUpdateAvatar} />
+
         <PopupWithForm name="place" title="Новое место" isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} buttonText="Создать">
             <label className="popup__field">
                 <input type="text" id="place-input" placeholder="Название" name="name" className="popup__text popup__text_input_name" required minLength="2" maxLength="30" />

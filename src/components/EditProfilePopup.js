@@ -23,7 +23,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
     }
 
     function handleDescriptionChange(evt) {
-        setDescription( evt.target.value);
+        setDescription(evt.target.value);
     }
 
     useEffect(() => {
