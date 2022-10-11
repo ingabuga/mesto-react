@@ -16,18 +16,19 @@ function App() {
     const [isEditProfilePopupOpen, setEditProfileState] = useState(false);
     const [isAddPlacePopupOpen, setAddPlaceState] = useState(false);
     const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
+    const [deleteCard, setDeletedCard] = useState({data: '', isOpen: false});
+
     const [currentUser, setCurrentUser] =useState({});
     const [cardsData, setCardsData] = useState([]);
-    const [deleteCard, setDeletedCard] = useState({data: '', isOpen: false});
 
 
     useEffect(() => {
-        Promise.all([api.getUserData(), api.getInitialCards()])
+        Promise.all([api.getInitialCards(), api.getUserData()])
             .then(allData => {
-                const [userData, cardsData] = allData;
-                return [userData, cardsData]
+                const [cardsData, userData] = allData;
+                return [cardsData, userData]
             })
-            .then(([userData, cardsData]) => {
+            .then(([cardsData, userData]) => {
                 setCurrentUser(userData);
                 setCardsData(cardsData);
             })
@@ -88,7 +89,7 @@ function App() {
     //   .finally(() => setIsLoading(false));
   }
 
-  function handleUpdateUser({data}) {
+  function handleUpdateUser(data) {
     // setIsLoading(true);
 
     api.patchUserData(data)
@@ -113,7 +114,7 @@ function App() {
         onEditAvatar={onEditAvatar} 
         onCardClick={handleCardClick} 
         onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete} />
+        onCardDelete={handleDeleteClick} />
         
         <Footer />
         

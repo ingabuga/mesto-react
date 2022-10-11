@@ -22,13 +22,13 @@ class Api {
   }
 
 
-  patchUserData(name, about) {
+  patchUserData(data) {
       return fetch(`${this._baseUrl}/users/me`, {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          name: name,
-          about: about
+          name: data.name,
+          about: data.about
         })
       })
         .then(res => this._check(res))
