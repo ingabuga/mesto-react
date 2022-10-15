@@ -99,7 +99,6 @@ function App() {
 
   //приходит пустая ссылка
   function handleUpdateAvatar(data) {
-    console.log(data);
     api.patchAvatar(data)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllPopups())
@@ -108,7 +107,6 @@ function App() {
 
 
   function handleAddPlaceSubmit(data) {
-    
     api.addNewCard(data)
       .then(newCard => setCardsData([newCard, ...cardsData]))
       .then(() => closeAllPopups())
