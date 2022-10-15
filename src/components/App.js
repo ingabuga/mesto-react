@@ -90,14 +90,17 @@ function App() {
   }
 
   function handleUpdateUser(data) {
+    
     api.patchUserData(data)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllPopups())
       .catch(err => console.log(`Не удалость обновить данные пользователя. Ошибка: ${err}`))
   }
 
-  function handleUpdateAvatar({avatar}) {
-    api.patchAvatar(avatar)
+  //приходит пустая ссылка
+  function handleUpdateAvatar(data) {
+    console.log(data);
+    api.patchAvatar(data)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllPopups())
       .catch(err => console.log(`Не удалость обновить аватар. Ошибка: ${err}`))
@@ -105,6 +108,7 @@ function App() {
 
 
   function handleAddPlaceSubmit(data) {
+    
     api.addNewCard(data)
       .then(newCard => setCardsData([newCard, ...cardsData]))
       .then(() => closeAllPopups())

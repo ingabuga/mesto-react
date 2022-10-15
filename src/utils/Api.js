@@ -35,12 +35,12 @@ class Api {
         
   }
 
-  patchAvatar(link) {
+  patchAvatar(data) {
       return fetch(`${this._baseUrl}/users/me/avatar`, {
         method: 'PATCH',
         headers: this._headers,
         body: JSON.stringify({
-          avatar: link
+          avatar: data.avatar
         })
       })
         .then(res => this._check(res))
