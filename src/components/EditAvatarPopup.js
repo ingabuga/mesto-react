@@ -7,10 +7,10 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
     function handleSubmit(evt) {
         evt.preventDefault();
-
+        
         onUpdateAvatar({
             avatar: inputRef.current.value
-        });
+        })
     }
 
 
@@ -22,7 +22,7 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
     <PopupWithForm name="avatar" title="Обновить аватар" isOpen={isOpen} onClose={onClose} onSubmit={handleSubmit} buttonText="Сохранить">
             <div className="popup__field">
-                <input ref={inputRef} type="url" id="avatar-input" placeholder="Ссылка на аватар" name="link" className="popup__text popup__text_input_job" required />
+                <input  type="url" id="avatar-input" placeholder="Ссылка на аватар" name="link" className="popup__text popup__text_input_job" required ref={inputRef}/>
                 <span id="avatar-input-error" className="error"></span>
             </div>
     </PopupWithForm>
