@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+// import { useContext } from 'react';
 import React from 'react';
 
 
@@ -10,7 +10,9 @@ function PopupWithForm({ name, title, buttonText, isOpen, onClose, onSubmit, chi
             <form className="popup__form" name={name} onSubmit={onSubmit} noValidate>
                 <h2 className="popup__title">{title}</h2>
                 {children}
-                <button className="popup__save-button" type="submit" onClick={onClose}>{buttonText}</button>
+                <button className="popup__save-button" type="submit" 
+                // onClick={onClose}
+                >{buttonText}</button>
             </form>
         </div>
     </div>
