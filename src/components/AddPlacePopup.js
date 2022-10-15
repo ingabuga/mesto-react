@@ -10,24 +10,17 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
     const [link, setLink] = useState({
         value: '',
-        // isValid: false,
-        // validationMsg: ''
     });
 
-    // const [formIsValid, setFormValidity] = useState(false);
 
     function handleNameChange(evt) {
         if (evt.target.validity.valid) {
             setName({
                 value: evt.target.value,
-                // isValid: true,
-                // validationMsg: ''
             });
         } else {
             setName({
                 value: evt.target.value,
-                // isValid: false,
-                // validationMsg: evt.target.validationMessage
             });
         }
     }
@@ -36,14 +29,10 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         if (evt.target.validity.valid) {
             setLink({
                 value: evt.target.value,
-                // isValid: true,
-                // validationMsg: ''
             });
         } else {
             setLink({
                 value: evt.target.value,
-                // isValid: false,
-                // validationMsg: evt.target.validationMessage
             });
         }
     }
@@ -57,26 +46,15 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         })
     }
 
-    // function handleFormValidity() {
-    //     name.isValid && link.isValid ? setFormValidity(true) : setFormValidity(false);
-    // }
+
 
     useEffect(() => {
-        // handleFormValidity();
-    },
+        },
     [name, link])
 
     useEffect(() => {
-        setName({
-            value: '',
-            // isValid: false,
-            // validationMsg: ''
-        });
-        setLink({
-            value: '',
-            // isValid: false,
-            // validationMsg: ''
-        });
+        setName({value: ''});
+        setLink({value: '' });
     }, [isOpen])
 
 
@@ -90,7 +68,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
                 </label>
                 <label className="popup__field">
                     <input type="url" id="link-input" placeholder="Ссылка на картинку" name="link" className="popup__text popup__text_input_job" required onChange={handleLinkChange} value={link.value}/>
-                    <span id="link-input-error" className="error"> {link.validationMsg}</span>
+                    <span id="link-input-error" className="error"></span>
                 </label>
     </PopupWithForm>
     )
