@@ -15,7 +15,7 @@ function PopupWithForm({ name, title, buttonText, isOpen, onClose, onSubmit, isV
                 {children}
                 <button 
                     // className="popup__save-button" 
-                    className={`popup__save-button ${name === 'delete' && ""} ${!isValid && "popup__save-button_inactive"}`}
+                    className={`popup__save-button ${name === 'delete'} ${!isValid && "popup__save-button_inactive"}`}
                     type="submit" 
                     disabled={!isValid}
                     // onClick={onClose}

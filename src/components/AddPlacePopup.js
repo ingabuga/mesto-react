@@ -92,14 +92,32 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
         isValid={formIsValid} 
     >
         <label className="popup__field">
-            <input type="text" id="place-input" placeholder="Название" name="name" className="popup__text popup__text_input_name" required minLength="2" maxLength="30" onChange={handleNameChange} value={name.value} />
-            <span id="place-input-error" className={`error ${(!name.isValid && isOpen) ? "error_active" : ""}`}>
-                {name.validationMsg}
+            <input 
+                type="text" 
+                id="place-input" 
+                placeholder="Название" 
+                name="name" className="popup__text popup__text_input_name" required minLength="2" maxLength="30" 
+                onChange={handleNameChange} 
+                value={name.value} 
+            />
+            <span id="place-input-error" 
+                className={`error ${(!name.isValid && isOpen) ? "error_active" : ""}`}>
+                    {name.validationMsg}
             </span>
         </label>
         <label className="popup__field">
-            <input type="url" id="link-input" placeholder="Ссылка на картинку" name="link" className="popup__text popup__text_input_job" required onChange={handleLinkChange} value={link.value}/>
-            <span id="link-input-error" className={`error ${(!link.isValid && isOpen) ? "error_active" : ""}`}>{link.validationMsg}</span>
+            <input 
+                type="url" 
+                id="link-input" 
+                placeholder="Ссылка на картинку" 
+                name="link" className="popup__text popup__text_input_job" required 
+                onChange={handleLinkChange} 
+                value={link.value}
+            />
+            <span id="link-input-error" 
+                className={`error ${(!link.isValid && isOpen) ? "error_active" : ""}`}>
+                    {link.validationMsg}
+            </span>
         </label>
     </PopupWithForm>
     )
