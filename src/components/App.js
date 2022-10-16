@@ -10,63 +10,74 @@ import EditProfilePopup from './EditProfilePopup.js';
 import EditAvatarPopup from './EditAvatarPopup.js';
 import AddPlacePopup from './AddPlacePopup.js';
 import DeleteCardPopup from './DeleteCardPopup.js';
+import { LoadingContext } from '../contexts/LoadingContext.js';
 
 
 function App() {
+  const [isEditAvatarPopupOpen, setIsEditAvatarState] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfileState] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlaceState] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({data: '', link: '', isOpen: false});
+  const [deletedCard, setDeletedCard] = useState({data: '', link: '', isOpen: false});
+
+  const [currentUser, setCurrentUser] =useState({});
+  const [cardsData, setCardsData] = useState([]);
 
 
-    const [isEditAvatarPopupOpen, setEditAvatarState] = useState(false);
-    const [isEditProfilePopupOpen, setEditProfileState] = useState(false);
-    const [isAddPlacePopupOpen, setAddPlaceState] = useState(false);
-    const [selectedCard, setSelectedCard] = useState({data: '', isOpen: false});
-    const [deletedCard, setDeletedCard] = useState({data: '', isOpen: false});
+  useEffect(() => {
+      Promise.all([api.getInitialCards(), api.getUserData()])
+        .then(([cardsData, userData]) => {
+            setCurrentUser(userData);
+            setCardsData(cardsData);
+        })
+        .catch(err => console.log(`Не удалось загрузить данные. Ошибка: ${err}`));      
+  }, []);
+  
 
-    const [currentUser, setCurrentUser] =useState({});
-    const [cardsData, setCardsData] = useState([]);
+  function onEditAvatar() {
+      setIsEditAvatarState(true)
+  }
 
+  function onEditProfile() {
+      setIsEditProfileState(true)
+  }
 
-    useEffect(() => {
-        Promise.all([api.getInitialCards(), api.getUserData()])
-            .then(allData => {
-                const [cardsData, userData] = allData;
-                return [cardsData, userData]
-            })
-            .then(([cardsData, userData]) => {
-                setCurrentUser(userData);
-                setCardsData(cardsData);
-            })
-            .catch(err => console.log(`Не удалось загрузить данные. Ошибка: ${err}`));
-            
-    }, []);
+  function onAddPlace() {
+      setIsAddPlaceState(true)
+  }
+
+  function closeAllPopups() {
+      setIsEditAvatarState(false);
+      setIsEditProfileState(false);
+      setIsAddPlaceState(false);
+      setSelectedCard({data: '', link: '', isOpen: false})
+      setDeletedCard({data: '', link: '', isOpen: false});
+  }
+
+  function handleCardClick(card) {
+      setSelectedCard({data: card, isOpen: true});
+    }
+
+    function handleDeleteClick(card) {
+      setDeletedCard({data: card, isOpen: true});
+  }
     
+  //Обработчик нажатия Escape
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.isOpen
 
-    function onEditAvatar() {
-        setEditAvatarState(true)
-    }
-
-    function onEditProfile() {
-        setEditProfileState(true)
-    }
-
-    function onAddPlace() {
-        setAddPlaceState(true)
-    }
-
-    function closeAllPopups() {
-        setEditAvatarState(false);
-        setEditProfileState(false);
-        setAddPlaceState(false);
-        setSelectedCard({data: '', isOpen: false})
-        setDeletedCard({data: '', isOpen: false});
-    }
-
-    function handleCardClick(card) {
-        setSelectedCard({data: card, isOpen: true});
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if(evt.key === 'Escape') {
+        closeAllPopups();
       }
-
-      function handleDeleteClick(card) {
-        setDeletedCard({data: card, isOpen: true});
+    }
+    if(isOpen) { 
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
       }
+    }
+  }, [isOpen])
 
 
  function handleCardLike(card) {
@@ -89,79 +100,91 @@ function App() {
       .catch(err => console.log(`Не удалость удалить карточку. Ошибка: ${err}`))
   }
 
+  const [isLoading, setIsLoading] = useState(false);
+
+
   function handleUpdateUser(data) {
-    
+    setIsLoading(true);
     api.patchUserData(data)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllPopups())
       .catch(err => console.log(`Не удалость обновить данные пользователя. Ошибка: ${err}`))
+      .finally(() => setIsLoading(false));
   }
 
-  //приходит пустая ссылка
+
   function handleUpdateAvatar(data) {
+    setIsLoading(true);
     api.patchAvatar(data)
       .then(newUserData => setCurrentUser(newUserData))
       .then(() => closeAllPopups())
       .catch(err => console.log(`Не удалость обновить аватар. Ошибка: ${err}`))
+      .finally(() => setIsLoading(false));
   }
 
 
   function handleAddPlaceSubmit(data) {
+    setIsLoading(true);
     api.addNewCard(data)
       .then(newCard => setCardsData([newCard, ...cardsData]))
       .then(() => closeAllPopups())
       .catch(err => console.log(`Не удалость отправить карточку. Ошибка: ${err}`))
+      .finally(() => setIsLoading(false));
   }
 
 
   return (
-    
     <div className="root">
-        
-    <div className="page">
-    <CurrentUserContext.Provider value={currentUser} >
-        <Header />
-        
-        <Main 
-        onEditProfile={onEditProfile} 
-        cardsData={cardsData} 
-        onAddPlace={onAddPlace} 
-        onEditAvatar={onEditAvatar} 
-        onCardClick={handleCardClick} 
-        onCardLike={handleCardLike}
-        onCardDelete={handleDeleteClick} />
-        
-        <Footer />
-        
-        <EditProfilePopup 
-        isOpen={isEditProfilePopupOpen} 
-        onClose={closeAllPopups} 
-        onUpdateUser={handleUpdateUser}/>
-        
-        <EditAvatarPopup 
-        isOpen={isEditAvatarPopupOpen} 
-        onClose={closeAllPopups} 
-        onUpdateAvatar={handleUpdateAvatar} />
+      <div className="page">
+        <CurrentUserContext.Provider value={currentUser} >
+          <Header />
+          
+          <Main 
+            onEditProfile={onEditProfile} 
+            cardsData={cardsData} 
+            onAddPlace={onAddPlace} 
+            onEditAvatar={onEditAvatar} 
+            onCardClick={handleCardClick} 
+            onCardLike={handleCardLike}
+            onCardDelete={handleDeleteClick} 
+          />
+          
+          <Footer />
+          <LoadingContext.Provider value={isLoading} >
+            <EditProfilePopup 
+              isOpen={isEditProfilePopupOpen} 
+              onClose={closeAllPopups} 
+              onUpdateUser={handleUpdateUser}
+            />
+            
+            <EditAvatarPopup 
+              isOpen={isEditAvatarPopupOpen} 
+              onClose={closeAllPopups} 
+              onUpdateAvatar={handleUpdateAvatar} 
+            />
 
-        <AddPlacePopup 
-        isOpen={isAddPlacePopupOpen} 
-        onClose={closeAllPopups} 
-        onAddPlace={handleAddPlaceSubmit} />
+            <AddPlacePopup 
+              isOpen={isAddPlacePopupOpen} 
+              onClose={closeAllPopups} 
+              onAddPlace={handleAddPlaceSubmit} 
+            />
 
+            <DeleteCardPopup 
+              isOpen={deletedCard.isOpen} 
+              onClose={closeAllPopups} 
+              card={deletedCard.data} 
+              onDeleteCard={handleCardDelete} 
+            />
+          </LoadingContext.Provider>
 
-        <ImagePopup 
-        isOpen={selectedCard.isOpen} 
-        onClose={closeAllPopups} 
-        card={selectedCard.data} />
-
-        <DeleteCardPopup 
-        isOpen={deletedCard.isOpen} 
-        onClose={closeAllPopups} 
-        card={deletedCard.data} 
-        onDeleteCard={handleCardDelete} />
-        
-    </CurrentUserContext.Provider>
-    </div>
+          <ImagePopup 
+            isOpen={selectedCard.isOpen} 
+            onClose={closeAllPopups} 
+            card={selectedCard.data} 
+            isLoading={isLoading}
+          />
+        </CurrentUserContext.Provider>
+      </div>
     
     </div>
 
