@@ -17,8 +17,8 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarState] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfileState] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlaceState] = useState(false);
-  const [selectedCard, setSelectedCard] = useState({data: '', link: '', isOpen: false});
-  const [deletedCard, setDeletedCard] = useState({data: '', link: '', isOpen: false});
+  const [selectedCard, setSelectedCard] = useState({data: {}, isOpen: false});
+  const [deletedCard, setDeletedCard] = useState({data: {}, isOpen: false});
 
   const [currentUser, setCurrentUser] =useState({});
   const [cardsData, setCardsData] = useState([]);
@@ -50,8 +50,8 @@ function App() {
       setIsEditAvatarState(false);
       setIsEditProfileState(false);
       setIsAddPlaceState(false);
-      setSelectedCard({data: '', link: '', isOpen: false})
-      setDeletedCard({data: '', link: '', isOpen: false});
+      setSelectedCard({data: {}, isOpen: false})
+      setDeletedCard({data: {}, isOpen: false});
   }
 
   function handleCardClick(card) {
@@ -63,7 +63,7 @@ function App() {
   }
     
   //Обработчик нажатия Escape
-  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.isOpen
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard.isOpen || deletedCard.isOpen
 
   useEffect(() => {
     function closeByEscape(evt) {
